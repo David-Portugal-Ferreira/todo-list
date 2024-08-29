@@ -1,6 +1,8 @@
 const wrapper = document.querySelector('.wrapper');
 const sidebarContent = document.querySelector('.sidebar-content');
 const contentTodos = document.querySelector('.content-todos');
+const btnAddProject = document.querySelector('.btn-add-project');
+const btnAddTodo = document.querySelector('.btn-add-todo');
 
 function createDiv() {
     const div = document.createElement('div');
@@ -27,6 +29,4 @@ function cleanElement() {
 
 
 
-
-
-export { wrapper, sidebarContent, contentTodos, createDiv, createPhara, createButton, bindEvent, cleanElement }
+export { wrapper, sidebarContent, contentTodos, btnAddProject, btnAddTodo, createDiv, createPhara, createButton, bindEvent, cleanElement }

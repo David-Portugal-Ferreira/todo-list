@@ -1,3 +1,7 @@
+* {
+    --text-font: 16px;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -40,7 +44,30 @@ body {
     border-style: none;
 }
 
+.project-btn {
+    margin-bottom: 20px;
+    width: 150px;
+    height: 25px;
+    font-size: var(--text-font);
+    border-radius: 15px;
+    border-style: none;
+}
+
 .content {
     width: calc(100% - 200px);
     background-color: burlywood;
+}
+
+.content-todos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.card {
+    width: 250px;
+    display: flex;
+    gap: 15px;
+    border: 1px solid black;
 }
