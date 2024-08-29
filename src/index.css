@@ -71,3 +71,7 @@ body {
     gap: 15px;
     border: 1px solid black;
 }
+
+dialog {
+    width: 400px;
+}
