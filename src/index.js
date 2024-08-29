@@ -26,21 +26,16 @@ renderProjects();
 
 dom.bindEvent(dom.btnAddProject, 'click', () => {
     alert('Add Project!');
-})
+});
 dom.bindEvent(dom.btnAddTodo, 'click', () => {
     dom.dialog.showModal();
     dom.date.setAttribute('min', dayMonthYear());
-})
+});
 dom.bindEvent(dom.formSubmit, 'click', (e) => {
     e.preventDefault();
-    let data = dom.getFormInputs();
-    let todo = new Todo(data.title, data.description, data.dueDate, data.priority, data.completed, data.notes); 
-    console.log(projects);
-    projects[currrentProject].addToProject(todo);
-
-    loadTodosFromProject(currrentProject);
-})
-
+    addTask();
+});
+dom.bindEvent(dom.formCloseBtn, 'click', () => cleanFormFields());
 
 
 function renderProjects() {
@@ -90,7 +85,10 @@ function loadTodosFromProject(index) {
 }
 
 function addTask() {
-    
+    let data = dom.getFormInputs();
+    let todo = new Todo(data.title.value, data.description.value, data.dueDate.value, data.priority.value, data.completed, data.notes.value); 
+    projects[currrentProject].addToProject(todo);
+    loadTodosFromProject(currrentProject);
 }
 
 function dayMonthYear() {
@@ -99,4 +97,11 @@ function dayMonthYear() {
     if(month < 10) month = `0${month}`;
     let year = new Date().getFullYear()
     return `${year}-${month}-${day}`;
+}
+
+function cleanFormFields() {
+    let data = dom.getFormInputs();
+    Object.keys(data).forEach(element => {
+        element.innerText = '';
+    });
 }

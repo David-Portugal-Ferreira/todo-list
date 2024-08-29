@@ -6,6 +6,7 @@ const btnAddTodo = document.querySelector('.btn-add-todo');
 const dialog = document.querySelector('dialog');
 const date = document.querySelector('input[type=date]');
 const formSubmit = document.querySelector('input[type=submit]');
+const formCloseBtn = document.querySelector('dialog > button');
 
 function createDiv() {
     const div = document.createElement('div');
@@ -31,15 +32,15 @@ function cleanElement() {
 }
 
 function getFormInputs() {
-    const title = document.querySelector('#title').value;
-    const description = document.querySelector('#description').value;
-    const dueDate = document.querySelector('#dueDate').value;
-    const priority = document.querySelector('#priority').value;
+    const title = document.querySelector('#title');
+    const description = document.querySelector('#description');
+    const dueDate = document.querySelector('#dueDate');
+    const priority = document.querySelector('#priority');
     const completed = false;
-    const notes = document.querySelector('#notes').value;
+    const notes = document.querySelector('#notes');
 
     return {title, description, dueDate, priority, completed, notes};
 }
 
 
-export { wrapper, sidebarContent, contentTodos, btnAddProject, btnAddTodo, dialog, date, formSubmit, createDiv, createPhara, createButton, bindEvent, cleanElement, getFormInputs }
+export { wrapper, sidebarContent, contentTodos, btnAddProject, btnAddTodo, dialog, date, formSubmit, formCloseBtn, createDiv, createPhara, createButton, bindEvent, cleanElement, getFormInputs }
