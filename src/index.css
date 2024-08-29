@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: lightblue;
+}
+
+.user-interface {
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: aquamarine;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-project {
+    display: flex;
+    justify-content:space-evenly ;
+    align-items: center;
+}
+.btn-add-project {
+    width: 35px;
+    height: 35px;
+    border-radius: 15px;
+    border-style: none;
+}
+
+.content {
+    width: calc(100% - 200px);
+    background-color: burlywood;
+}
