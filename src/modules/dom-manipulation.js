@@ -76,6 +76,11 @@ function createTextArea() {
     return textArea;
 }
 
+function selectElement(element) {
+    const result = document.querySelector(element);
+    return result;
+}
+
 
 export { 
     wrapper, 
@@ -100,4 +105,5 @@ export {
     createForm, 
     createLabel,
     createTextArea,
+    selectElement,
 }

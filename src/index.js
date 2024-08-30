@@ -211,6 +211,7 @@ function addTaskButtonVisibility(action) {
 function showTaskInfo(index, taskIndex) {
     addTaskButtonVisibility("none");
     const form = dom.createForm();
+    form.id = "change-task";
 
     Object.keys(projects[index].items[taskIndex]).forEach(element => {
         const label = dom.createLabel();
@@ -247,23 +248,33 @@ function showTaskInfo(index, taskIndex) {
         } else {
             const textArea = dom.createTextArea();
             textArea.id = "notes";
+            textArea.value = projects[index].items[taskIndex][element];
             form.appendChild(textArea);
         }
     })
     const submitForm = dom.createInput();
     submitForm.type = "submit";
-    dom.bindEvent(submitForm, 'click', (e) => submitNewTodoValues(e, index, taskIndex));
+    dom.bindEvent(submitForm, 'click', (e) => submitNewTodoValues(e, index, taskIndex, form));
 
     form.appendChild(submitForm);
     dom.contentTodos.replaceChildren(form);
 }
 
-function submitNewTodoValues(e, index, taskIndex) {
+function submitNewTodoValues(e, index, taskIndex, form) {
     e.preventDefault();
     const data = dom.getFormInputs();
     let isDataValid = validateInputValues(data);
-    for(const element in data) {
-        // console.log(`${element}: ${data[element].value}`)
-        projects[index].items[taskIndex].changeProperty(element, data[element].value);
+    if (isDataValid) {
+        for (const element in data) {
+            // console.log(`${element}: ${data[element].value}`)
+            projects[index].items[taskIndex].changeProperty(element, data[element].value);
+        }
+    } else {
+        invalidFormSubmissionStyle(data, 'add');
     }
+
+    addTaskButtonVisibility('block');
+    form.style.display = 'none';
+
+    saveProjectsToLocalStorage();
 }
