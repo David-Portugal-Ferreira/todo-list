@@ -9,10 +9,21 @@ import { Project } from './modules/projects'
 import * as dom from './modules/dom-manipulation'
 
 let currrentProject = 0; // Default Project
-const projects = JSON.parse(localStorage.getItem("todo-list")) || [];
-if (projects.length === 0) {
-    const defaultProject = new Project('Default');
-    projects.push(defaultProject);
+const projects = [];
+loadProjectsFromLocalStorage();
+
+function loadProjectsFromLocalStorage() {
+    const projectsInLocalStorage = JSON.parse(localStorage.getItem("todo-list"));
+    if(projectsInLocalStorage !== null) {
+        projectsInLocalStorage.forEach((element) => {
+            const project = new Project(element.name);
+            element.items.forEach(todo => {
+                let task = new Todo(todo.title, todo.description, todo.dueDate, todo.priority, todo.completed, todo.notes);
+                project.addToProject(task);
+            }) 
+            projects.push(project);
+        })
+    }
 }
 
 renderProjects();
