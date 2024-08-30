@@ -7,19 +7,8 @@ import * as dom from './modules/dom-manipulation'
 let currrentProject = 0; // Default Project
 const projects = [];
 const defaultProject = new Project('Default');
-const todo1 = new Todo('teste', 'test', 'ded', 8, false, '');
-const todo2 = new Todo('asdf', 'asdf', 'asdf', 13, false, 'asdf');
-defaultProject.addToProject(todo1);
-defaultProject.addToProject(todo2);
 projects.push(defaultProject);
 
-
-const defaultProject2 = new Project('Teste');
-const todo3 = new Todo('teste2', 'test2', 'test2', 2, true, '');
-const todo4 = new Todo('asdf', 'asdf', 'asdf', 13, false, 'asdf');
-defaultProject2.addToProject(todo3);
-defaultProject2.addToProject(todo4);
-projects.push(defaultProject2);
 
 renderProjects();
 
@@ -146,11 +135,7 @@ function invalidFormSubmissionStyle(data, action) {
 }
 
 function createNewProject() {
-    const input = dom.createInput();
-    input.type = 'text';
-    input.classList.add('project-input');
-    dom.sidebarContent.appendChild(input);
-    input.focus();
+    const input = createInput();
     dom.bindEvent(input, 'blur', () => {
         if(input.value === '') {
             dom.sidebarContent.removeChild(input);
@@ -161,6 +146,16 @@ function createNewProject() {
             dom.sidebarContent.replaceChildren();
             renderProjects();
             currrentProject = projects.length - 1;
+            loadTodosFromProject(currrentProject);
         }
     })
+}
+
+function createInput() {
+    const input = dom.createInput();
+    input.type = 'text';
+    input.classList.add('input-project');
+    dom.sidebarContent.appendChild(input);
+    input.focus();
+    return input;
 }

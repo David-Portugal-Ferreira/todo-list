@@ -99,3 +99,8 @@ input[type=submit] {
 dialog > button {
     margin-top: 10px;
 }
+
+.input-project {
+    border-radius: 15px;
+    width: 150px;
+}
