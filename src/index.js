@@ -35,20 +35,20 @@ renderProjects();
 dom.bindEvent(dom.btnAddProject, 'click', () => {
     createNewProject();
 });
-// dom.bindEvent(dom.btnAddTodo, 'click', () => {
-//     dom.dialog.showModal();
-//     dom.date.setAttribute('min', dayMonthYear());
-// });
-// dom.bindEvent(dom.formSubmit, 'click', (e) => {
-//     e.preventDefault();
-//     addTask();
-// });
-// dom.bindEvent(dom.formCloseBtn, 'click', () => {
-//     cleanFormFields();
-//     dom.dialog.close()
-//     const data = dom.getFormInputs();
-//     invalidFormSubmissionStyle(data, 'remove');
-// });
+dom.bindEvent(dom.btnAddTodo, 'click', () => {
+    dom.dialog.showModal();
+    dom.date.setAttribute('min', dayMonthYear());
+});
+dom.bindEvent(dom.formSubmit, 'click', (e) => {
+    e.preventDefault();
+    addTask();
+});
+dom.bindEvent(dom.formCloseBtn, 'click', () => {
+    cleanFormFields();
+    dom.dialog.close()
+    const data = dom.getFormInputs();
+    invalidFormSubmissionStyle(data, 'remove');
+});
 
 
 function renderProjects() {
@@ -266,11 +266,11 @@ function submitNewTodoValues(e, index, taskIndex, form) {
     let isDataValid = validateInputValues(data);
     if (isDataValid) {
         for (const element in data) {
-            // console.log(`${element}: ${data[element].value}`)
             projects[index].items[taskIndex].changeProperty(element, data[element].value);
         }
     } else {
         invalidFormSubmissionStyle(data, 'add');
+        return;
     }
 
     addTaskButtonVisibility('block');
