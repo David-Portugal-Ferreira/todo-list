@@ -72,7 +72,8 @@ function renderProjects() {
 
 function loadTodosFromProject(index) {
     currrentProject = index;
-    dom.cleanElement();
+    dom.cleanTodosDiv();
+    addTaskButtonVisibility('block');
 
     projects[index].items.forEach((element, taskIndex) => {
         const card = dom.createDiv();
@@ -203,9 +204,12 @@ function saveProjectsToLocalStorage() {
     localStorage.setItem("todo-list", projectsJson);
 }
 
-function showTaskInfo(index, taskIndex) {
-    dom.btnAddTodo.style.display = 'none';
+function addTaskButtonVisibility(action) {
+    dom.btnAddTodo.style.display = action;
+}
 
+function showTaskInfo(index, taskIndex) {
+    addTaskButtonVisibility("none");
     const form = dom.createForm();
 
     Object.keys(projects[index].items[taskIndex]).forEach(element => {

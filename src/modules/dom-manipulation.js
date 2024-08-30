@@ -2,6 +2,7 @@ import './dom.css';
 
 const wrapper = document.querySelector('.wrapper');
 const sidebarContent = document.querySelector('.sidebar-content');
+const sidebarContentButtons = document.querySelectorAll('.sidebar-content > button');
 const contentTodos = document.querySelector('.content-todos');
 const btnAddProject = document.querySelector('.btn-add-project');
 const btnAddTodo = document.querySelector('.btn-add-todo');
@@ -10,6 +11,12 @@ const form = document.querySelector('form');
 const date = document.querySelector('input[type=date]');
 const formSubmit = document.querySelector('input[type=submit]');
 const formCloseBtn = document.querySelector('dialog > button');
+
+function disableSidebarButtons() {
+    sidebarContentButtons.forEach(element => {
+        element.disabled = true;
+    })
+}
 
 function createDiv() {
     const div = document.createElement('div');
@@ -30,7 +37,7 @@ function bindEvent(element, action, func) {
     return element.addEventListener(action, func)
 }
 
-function cleanElement() {
+function cleanTodosDiv() {
     return contentTodos.replaceChildren();
 }
 
@@ -72,7 +79,7 @@ function createTextArea() {
 
 export { 
     wrapper, 
-    sidebarContent, 
+    sidebarContent,
     contentTodos, 
     btnAddProject, 
     btnAddTodo, 
@@ -80,12 +87,13 @@ export {
     form, 
     date, 
     formSubmit, 
-    formCloseBtn, 
+    formCloseBtn,
+    disableSidebarButtons,
     createDiv, 
     createPhara, 
     createButton, 
     bindEvent, 
-    cleanElement, 
+    cleanTodosDiv, 
     getFormInputs, 
     invalidField, 
     createInput, 
