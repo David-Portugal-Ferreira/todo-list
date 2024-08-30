@@ -6,11 +6,11 @@ const sidebarContentButtons = document.querySelectorAll('.sidebar-content > butt
 const contentTodos = document.querySelector('.content-todos');
 const btnAddProject = document.querySelector('.btn-add-project');
 const btnAddTodo = document.querySelector('.btn-add-todo');
-const dialog = document.querySelector('dialog');
+// const dialog = document.querySelector('dialog');
 const form = document.querySelector('form');
-const date = document.querySelector('input[type=date]');
-const formSubmit = document.querySelector('input[type=submit]');
-const formCloseBtn = document.querySelector('dialog > button');
+// const date = document.querySelector('dialog input[type=date]');
+// const formSubmit = document.querySelector('dialog input[type=submit]');
+// const formCloseBtn = document.querySelector('dialog > button');
 
 function disableSidebarButtons() {
     sidebarContentButtons.forEach(element => {
@@ -83,11 +83,11 @@ export {
     contentTodos, 
     btnAddProject, 
     btnAddTodo, 
-    dialog, 
+    // dialog, 
     form, 
-    date, 
-    formSubmit, 
-    formCloseBtn,
+    // date, 
+    // formSubmit, 
+    // formCloseBtn,
     disableSidebarButtons,
     createDiv, 
     createPhara, 
