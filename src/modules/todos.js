@@ -22,6 +22,10 @@ class Todo {
     changeCompleted () {
         this.completed = !this.completed;
     }
+
+    changeProperty (key, value) {
+        this[key] = value;
+    }
 }
 
 export { Todo }

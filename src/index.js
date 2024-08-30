@@ -15,15 +15,18 @@ loadProjectsFromLocalStorage();
 
 function loadProjectsFromLocalStorage() {
     const projectsInLocalStorage = JSON.parse(localStorage.getItem("todo-list"));
-    if(projectsInLocalStorage) {
+    if (projectsInLocalStorage) {
         projectsInLocalStorage.forEach((element) => {
             const project = new Project(element.name);
             element.items.forEach(todo => {
                 let task = new Todo(todo.title, todo.description, todo.dueDate, todo.priority, todo.completed, todo.notes);
                 project.addToProject(task);
-            }) 
+            })
             projects.push(project);
         })
+    } else {
+        const project = new Project("Default");
+        projects.push(project);
     }
 }
 
@@ -71,7 +74,7 @@ function loadTodosFromProject(index) {
     currrentProject = index;
     dom.cleanElement();
 
-    projects[index].items.forEach(element => {
+    projects[index].items.forEach((element, taskIndex) => {
         const card = dom.createDiv();
         card.classList = 'card'
 
@@ -94,6 +97,8 @@ function loadTodosFromProject(index) {
         completed.innerText = element.completed;
         completed.classList = 'card-completed';
         card.appendChild(completed)
+
+        dom.bindEvent(card, 'click', () => showTaskInfo(index, taskIndex));
 
         dom.contentTodos.appendChild(card);
     })
@@ -196,4 +201,46 @@ function deleteProjectFunc(projects, index) {
 function saveProjectsToLocalStorage() {
     const projectsJson = JSON.stringify(projects);
     localStorage.setItem("todo-list", projectsJson);
+}
+
+function showTaskInfo(index, taskIndex) {
+    dom.btnAddTodo.style.display = 'none';
+
+    const form = dom.createForm();
+
+    Object.keys(projects[index].items[taskIndex]).forEach(element => {
+        const label = dom.createLabel();
+        label.innerText = `${element[0].toUpperCase()}${element.slice(1)}:`;
+        form.appendChild(label);
+
+        if (element !== "notes") {
+            const input = dom.createInput();
+            switch (element) {
+                case "title":
+                case "description":
+                    input.type = "text";
+                    break;
+                case "dueDate":
+                    input.type = "date";
+                    input.min = dayMonthYear();
+                    break;
+                case "priority":
+                    input.type = "number";
+                    break;
+                case "completed":
+                    input.type = "checkbox";
+                    break;
+            }
+            input.value = projects[index].items[taskIndex][element];
+            form.appendChild(input);
+        } else {
+            const textArea = dom.createTextArea();
+            form.appendChild(textArea);
+        }
+    })
+    const submitForm = dom.createInput();
+    submitForm.type = "submit";
+
+    form.appendChild(submitForm);
+    dom.contentTodos.replaceChildren(form);
 }

@@ -54,5 +54,42 @@ function createInput() {
     return input;
 }
 
+function createForm() {
+    const form = document.createElement('form');
+    return form;
+}
 
-export { wrapper, sidebarContent, contentTodos, btnAddProject, btnAddTodo, dialog, form, date, formSubmit, formCloseBtn, createDiv, createPhara, createButton, bindEvent, cleanElement, getFormInputs, invalidField, createInput }
+function createLabel() {
+    const label = document.createElement('label');
+    return label;
+}
+
+function createTextArea() {
+    const textArea = document.createElement('textarea');
+    return textArea;
+}
+
+
+export { 
+    wrapper, 
+    sidebarContent, 
+    contentTodos, 
+    btnAddProject, 
+    btnAddTodo, 
+    dialog, 
+    form, 
+    date, 
+    formSubmit, 
+    formCloseBtn, 
+    createDiv, 
+    createPhara, 
+    createButton, 
+    bindEvent, 
+    cleanElement, 
+    getFormInputs, 
+    invalidField, 
+    createInput, 
+    createForm, 
+    createLabel,
+    createTextArea,
+}
