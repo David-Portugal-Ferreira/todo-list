@@ -9,10 +9,11 @@ import { Project } from './modules/projects'
 import * as dom from './modules/dom-manipulation'
 
 let currrentProject = 0; // Default Project
-const projects = [];
-const defaultProject = new Project('Default');
-projects.push(defaultProject);
-
+const projects = JSON.parse(localStorage.getItem("todo-list")) || [];
+if (projects.length === 0) {
+    const defaultProject = new Project('Default');
+    projects.push(defaultProject);
+}
 
 renderProjects();
 
@@ -103,6 +104,7 @@ function addTask() {
         invalidFormSubmissionStyle(data, 'add');
         console.log('Erro!')
     }
+    saveProjectsToLocalStorage(projects)
 }
 
 function dayMonthYear() {
@@ -156,6 +158,7 @@ function createNewProject() {
             const project = new Project(input.value);
             dom.sidebarContent.removeChild(input);
             projects.push(project);
+            saveProjectsToLocalStorage(projects);
             dom.sidebarContent.replaceChildren();
             renderProjects();
             currrentProject = projects.length - 1;
@@ -177,6 +180,12 @@ function deleteProjectFunc(projects, index) {
     projects.splice(index, 1);
     dom.sidebarContent.replaceChildren();
     dom.contentTodos.replaceChildren();
+    saveProjectsToLocalStorage(projects)
     renderProjects();
     currrentProject = 0;
+}
+
+function saveProjectsToLocalStorage() {
+    const projectsJson = JSON.stringify(projects);
+    localStorage.setItem("todo-list", projectsJson);
 }
