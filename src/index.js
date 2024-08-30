@@ -135,7 +135,7 @@ function invalidFormSubmissionStyle(data, action) {
 }
 
 function createNewProject() {
-    const input = createInput();
+    const input = createNewProjectInput();
     dom.bindEvent(input, 'blur', () => {
         if(input.value === '') {
             dom.sidebarContent.removeChild(input);
@@ -151,7 +151,7 @@ function createNewProject() {
     })
 }
 
-function createInput() {
+function createNewProjectInput() {
     const input = dom.createInput();
     input.type = 'text';
     input.classList.add('input-project');
