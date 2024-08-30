@@ -43,11 +43,13 @@ function renderProjects() {
         projButton.classList = 'project-btn';
         elementEvent(projButton, 'click', () => loadTodosFromProject(index));
         div.appendChild(projButton);
-        const deleteProjetc = dom.createButton();
-        deleteProjetc.innerHTML = `<i class="fa-solid fa-trash"></i>`;
-        deleteProjetc.classList.add("delete-project")
-        dom.bindEvent(deleteProjetc, 'click', () => alert('toma'))
-        div.appendChild(deleteProjetc);
+        if (index !== 0) {
+            const deleteProjetc = dom.createButton();
+            deleteProjetc.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+            deleteProjetc.classList.add("delete-project")
+            dom.bindEvent(deleteProjetc, 'click', () => deleteProjectFunc(projects, index));
+            div.appendChild(deleteProjetc);
+        }
         dom.sidebarContent.appendChild(div);
     })
 }
@@ -91,8 +93,8 @@ function loadTodosFromProject(index) {
 function addTask() {
     let data = dom.getFormInputs();
     let isDataValid = validateInputValues(data);
-    if(isDataValid) {
-        let todo = new Todo(data.title.value, data.description.value, data.dueDate.value, data.priority.value, data.completed, data.notes.value); 
+    if (isDataValid) {
+        let todo = new Todo(data.title.value, data.description.value, data.dueDate.value, data.priority.value, data.completed, data.notes.value);
         projects[currrentProject].addToProject(todo);
         loadTodosFromProject(currrentProject);
         invalidFormSubmissionStyle(data, 'remove')
@@ -106,7 +108,7 @@ function addTask() {
 function dayMonthYear() {
     let day = new Date().getDate();
     let month = new Date().getMonth() + 1;
-    if(month < 10) month = `0${month}`;
+    if (month < 10) month = `0${month}`;
     let year = new Date().getFullYear()
     return `${year}-${month}-${day}`;
 }
@@ -116,7 +118,7 @@ function cleanFormFields() {
 }
 
 function validateInputValues(data) {
-    if(
+    if (
         data.title.value === '' ||
         data.description.value === '' ||
         data.dueDate.value === '' ||
@@ -132,7 +134,7 @@ function invalidFormSubmissionStyle(data, action) {
     if (action === 'add') {
         Object.entries(data).forEach((element) => {
             if (element[0] === 'notes' || element[0] === 'completed') return;
-            if(element[1].value === '') {
+            if (element[1].value === '') {
                 element[1].classList[action]('invalid-input');
             }
         })
@@ -148,7 +150,7 @@ function invalidFormSubmissionStyle(data, action) {
 function createNewProject() {
     const input = createNewProjectInput();
     dom.bindEvent(input, 'blur', () => {
-        if(input.value === '') {
+        if (input.value === '') {
             dom.sidebarContent.removeChild(input);
         } else {
             const project = new Project(input.value);
@@ -169,4 +171,12 @@ function createNewProjectInput() {
     dom.sidebarContent.appendChild(input);
     input.focus();
     return input;
+}
+
+function deleteProjectFunc(projects, index) {
+    projects.splice(index, 1);
+    dom.sidebarContent.replaceChildren();
+    dom.contentTodos.replaceChildren();
+    renderProjects();
+    currrentProject = 0;
 }
