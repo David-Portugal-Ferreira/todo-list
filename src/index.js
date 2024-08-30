@@ -10,11 +10,12 @@ import * as dom from './modules/dom-manipulation'
 
 let currrentProject = 0; // Default Project
 const projects = [];
+
 loadProjectsFromLocalStorage();
 
 function loadProjectsFromLocalStorage() {
     const projectsInLocalStorage = JSON.parse(localStorage.getItem("todo-list"));
-    if(projectsInLocalStorage !== null) {
+    if(projectsInLocalStorage) {
         projectsInLocalStorage.forEach((element) => {
             const project = new Project(element.name);
             element.items.forEach(todo => {
@@ -53,7 +54,7 @@ function renderProjects() {
         const projButton = dom.createButton();
         projButton.innerText = element.name;
         projButton.classList = 'project-btn';
-        elementEvent(projButton, 'click', () => loadTodosFromProject(index));
+        dom.bindEvent(projButton, 'click', () => loadTodosFromProject(index));
         div.appendChild(projButton);
         if (index !== 0) {
             const deleteProjetc = dom.createButton();
@@ -64,10 +65,6 @@ function renderProjects() {
         }
         dom.sidebarContent.appendChild(div);
     })
-}
-
-function elementEvent(element, action, func) {
-    dom.bindEvent(element, action, func);
 }
 
 function loadTodosFromProject(index) {
