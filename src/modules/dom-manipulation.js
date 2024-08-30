@@ -1,9 +1,12 @@
+import './dom.css';
+
 const wrapper = document.querySelector('.wrapper');
 const sidebarContent = document.querySelector('.sidebar-content');
 const contentTodos = document.querySelector('.content-todos');
 const btnAddProject = document.querySelector('.btn-add-project');
 const btnAddTodo = document.querySelector('.btn-add-todo');
 const dialog = document.querySelector('dialog');
+const form = document.querySelector('form');
 const date = document.querySelector('input[type=date]');
 const formSubmit = document.querySelector('input[type=submit]');
 const formCloseBtn = document.querySelector('dialog > button');
@@ -42,5 +45,9 @@ function getFormInputs() {
     return {title, description, dueDate, priority, completed, notes};
 }
 
+function invalidField() {
+    return 'invalid-input';
+}
 
-export { wrapper, sidebarContent, contentTodos, btnAddProject, btnAddTodo, dialog, date, formSubmit, formCloseBtn, createDiv, createPhara, createButton, bindEvent, cleanElement, getFormInputs }
+
+export { wrapper, sidebarContent, contentTodos, btnAddProject, btnAddTodo, dialog, form, date, formSubmit, formCloseBtn, createDiv, createPhara, createButton, bindEvent, cleanElement, getFormInputs, invalidField }

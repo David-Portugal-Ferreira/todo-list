@@ -15,7 +15,7 @@ projects.push(defaultProject);
 
 
 const defaultProject2 = new Project('Teste');
-const todo3 = new Todo('teste', 'test', 'ded', 8, false, '');
+const todo3 = new Todo('teste2', 'test2', 'test2', 2, true, '');
 const todo4 = new Todo('asdf', 'asdf', 'asdf', 13, false, 'asdf');
 defaultProject2.addToProject(todo3);
 defaultProject2.addToProject(todo4);
@@ -35,7 +35,12 @@ dom.bindEvent(dom.formSubmit, 'click', (e) => {
     e.preventDefault();
     addTask();
 });
-dom.bindEvent(dom.formCloseBtn, 'click', () => cleanFormFields());
+dom.bindEvent(dom.formCloseBtn, 'click', () => {
+    cleanFormFields();
+    dom.dialog.close()
+    const data = dom.getFormInputs();
+    invalidFormSubmissionStyle(data, 'remove');
+});
 
 
 function renderProjects() {
@@ -86,9 +91,17 @@ function loadTodosFromProject(index) {
 
 function addTask() {
     let data = dom.getFormInputs();
-    let todo = new Todo(data.title.value, data.description.value, data.dueDate.value, data.priority.value, data.completed, data.notes.value); 
-    projects[currrentProject].addToProject(todo);
-    loadTodosFromProject(currrentProject);
+    let isDataValid = validateInputValues(data);
+    if(isDataValid) {
+        let todo = new Todo(data.title.value, data.description.value, data.dueDate.value, data.priority.value, data.completed, data.notes.value); 
+        projects[currrentProject].addToProject(todo);
+        loadTodosFromProject(currrentProject);
+        invalidFormSubmissionStyle(data, 'remove')
+        cleanFormFields();
+    } else {
+        invalidFormSubmissionStyle(data, 'add');
+        console.log('Erro!')
+    }
 }
 
 function dayMonthYear() {
@@ -100,8 +113,27 @@ function dayMonthYear() {
 }
 
 function cleanFormFields() {
-    let data = dom.getFormInputs();
-    Object.keys(data).forEach(element => {
-        element.innerText = '';
-    });
+    dom.form.reset()
+}
+
+function validateInputValues(data) {
+    if(
+        data.title.value === '' ||
+        data.description.value === '' ||
+        data.dueDate.value === '' ||
+        data.priority.value === '' ||
+        data.description.value === ''
+    ) {
+        return false
+    }
+    return true
+}
+
+function invalidFormSubmissionStyle(data, action) {
+    Object.entries(data).forEach((element) => {
+        if (element[0] === 'notes' || element[0] === 'completed') return;
+        if(element[1].value === '') {
+            element[1].classList[action]('invalid-input');
+        }
+    })
 }
