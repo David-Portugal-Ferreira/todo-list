@@ -1,4 +1,8 @@
 import './index.css'
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
 
 import { Todo } from './modules/todos'
 import { Project } from './modules/projects'
@@ -33,11 +37,18 @@ dom.bindEvent(dom.formCloseBtn, 'click', () => {
 
 function renderProjects() {
     projects.forEach((element, index) => {
-        let projButton = dom.createButton();
+        const div = dom.createDiv();
+        const projButton = dom.createButton();
         projButton.innerText = element.name;
         projButton.classList = 'project-btn';
         elementEvent(projButton, 'click', () => loadTodosFromProject(index));
-        dom.sidebarContent.appendChild(projButton);
+        div.appendChild(projButton);
+        const deleteProjetc = dom.createButton();
+        deleteProjetc.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+        deleteProjetc.classList.add("delete-project")
+        dom.bindEvent(deleteProjetc, 'click', () => alert('toma'))
+        div.appendChild(deleteProjetc);
+        dom.sidebarContent.appendChild(div);
     })
 }
 
