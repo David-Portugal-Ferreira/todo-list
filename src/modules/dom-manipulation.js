@@ -49,5 +49,10 @@ function invalidField() {
     return 'invalid-input';
 }
 
+function createInput() {
+    const input = document.createElement('input');
+    return input;
+}
 
-export { wrapper, sidebarContent, contentTodos, btnAddProject, btnAddTodo, dialog, form, date, formSubmit, formCloseBtn, createDiv, createPhara, createButton, bindEvent, cleanElement, getFormInputs, invalidField }
+
+export { wrapper, sidebarContent, contentTodos, btnAddProject, btnAddTodo, dialog, form, date, formSubmit, formCloseBtn, createDiv, createPhara, createButton, bindEvent, cleanElement, getFormInputs, invalidField, createInput }

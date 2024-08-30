@@ -21,11 +21,10 @@ defaultProject2.addToProject(todo3);
 defaultProject2.addToProject(todo4);
 projects.push(defaultProject2);
 
-
 renderProjects();
 
 dom.bindEvent(dom.btnAddProject, 'click', () => {
-    alert('Add Project!');
+    createNewProject();
 });
 dom.bindEvent(dom.btnAddTodo, 'click', () => {
     dom.dialog.showModal();
@@ -130,10 +129,38 @@ function validateInputValues(data) {
 }
 
 function invalidFormSubmissionStyle(data, action) {
-    Object.entries(data).forEach((element) => {
-        if (element[0] === 'notes' || element[0] === 'completed') return;
-        if(element[1].value === '') {
+    if (action === 'add') {
+        Object.entries(data).forEach((element) => {
+            if (element[0] === 'notes' || element[0] === 'completed') return;
+            if(element[1].value === '') {
+                element[1].classList[action]('invalid-input');
+            }
+        })
+    }
+    if (action === 'remove') {
+        Object.entries(data).forEach((element) => {
+            if (element[0] === 'notes' || element[0] === 'completed') return;
             element[1].classList[action]('invalid-input');
+        })
+    }
+}
+
+function createNewProject() {
+    const input = dom.createInput();
+    input.type = 'text';
+    input.classList.add('project-input');
+    dom.sidebarContent.appendChild(input);
+    input.focus();
+    dom.bindEvent(input, 'blur', () => {
+        if(input.value === '') {
+            dom.sidebarContent.removeChild(input);
+        } else {
+            const project = new Project(input.value);
+            dom.sidebarContent.removeChild(input);
+            projects.push(project);
+            dom.sidebarContent.replaceChildren();
+            renderProjects();
+            currrentProject = projects.length - 1;
         }
     })
 }
