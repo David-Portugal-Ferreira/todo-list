@@ -62,7 +62,7 @@ function renderProjects() {
         if (index !== 0) {
             const deleteProjetc = dom.createButton();
             deleteProjetc.innerHTML = `<i class="fa-solid fa-trash"></i>`;
-            deleteProjetc.classList.add("delete-project")
+            deleteProjetc.classList.add("delete-project");
             dom.bindEvent(deleteProjetc, 'click', () => deleteProjectFunc(projects, index));
             div.appendChild(deleteProjetc);
         }
@@ -262,11 +262,19 @@ function showTaskInfo(index, taskIndex) {
             form.appendChild(textArea);
         }
     })
+
     const submitForm = dom.createInput();
     submitForm.type = "submit";
     dom.bindEvent(submitForm, 'click', (e) => submitNewTodoValues(e, index, taskIndex, form));
-
     form.appendChild(submitForm);
+
+    const deleteTodo = dom.createButton();
+    deleteTodo.type = 'button';
+    deleteTodo.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+    dom.bindEvent(deleteTodo, 'click', () => deleteTask(index, form));
+
+    form.appendChild(deleteTodo);
+
     dom.contentTodos.replaceChildren(form);
 }
 
@@ -290,5 +298,12 @@ function submitNewTodoValues(e, index, taskIndex, form) {
     addTaskButtonVisibility('block');
     form.style.display = 'none';
 
+    saveProjectsToLocalStorage();
+}
+
+function deleteTask(index, form) {
+    projects[index].items.splice(index, 1);
+    addTaskButtonVisibility('block');
+    form.style.display = 'none';
     saveProjectsToLocalStorage();
 }
