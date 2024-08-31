@@ -142,7 +142,7 @@ function validateInputValues(data) {
         data.title.value === '' ||
         data.description.value === '' ||
         data.dueDate.value === '' ||
-        data.priority.value === '' ||
+        (data.priority.value === '' || data.priority.value < 1 || data.priority.value > 5) ||
         data.description.value === ''
     ) {
         return false
@@ -154,6 +154,7 @@ function invalidFormSubmissionStyle(data, action) {
     if (action === 'add') {
         Object.entries(data).forEach((element) => {
             if (element[0] === 'notes' || element[0] === 'completed') return;
+            if (element[0] === 'priority' && (element[1].value < 1 || element[1].value > 5)) element[1].classList[action]('invalid-input');
             if (element[1].value === '') {
                 element[1].classList[action]('invalid-input');
             }
