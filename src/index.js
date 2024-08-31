@@ -95,7 +95,11 @@ function loadTodosFromProject(index) {
         card.appendChild(priority)
 
         const completed = dom.createPhara();
-        completed.innerText = element.completed;
+        if(element.completed) {
+            completed.innerText = 'Done';
+        } else {
+            completed.innerText = 'To do'
+        }
         completed.classList = 'card-completed';
         card.appendChild(completed)
 
@@ -266,6 +270,9 @@ function submitNewTodoValues(e, index, taskIndex, form) {
     let isDataValid = validateInputValues(data);
     if (isDataValid) {
         for (const element in data) {
+            if(element === 'completed') {
+                projects[index].items[taskIndex].changeProperty(element, data[element].checked);
+            }
             projects[index].items[taskIndex].changeProperty(element, data[element].value);
         }
     } else {

@@ -46,7 +46,7 @@ function getFormInputs() {
     const description = document.querySelector('#description');
     const dueDate = document.querySelector('#dueDate');
     const priority = document.querySelector('#priority');
-    const completed = false;
+    const completed = document.querySelector('#completed') || false;
     const notes = document.querySelector('#notes');
 
     return {title, description, dueDate, priority, completed, notes};
