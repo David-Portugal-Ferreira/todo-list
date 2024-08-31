@@ -8,6 +8,10 @@ import { Todo } from './modules/todos'
 import { Project } from './modules/projects'
 import * as dom from './modules/dom-manipulation'
 
+// TODO - Pass everything related to dom manipulation to dom-manipulation.js
+//        This includes, for exemple, adding id's to something
+//        Make the project prettier
+
 let currrentProject = 0; // Default Project
 const projects = [];
 
@@ -56,13 +60,15 @@ function renderProjects() {
         const div = dom.createDiv();
         const projButton = dom.createButton();
         projButton.innerText = element.name;
-        projButton.classList = 'project-btn';
+        dom.addClassList(projButton, 'project-btn', 'add');
         dom.bindEvent(projButton, 'click', () => loadTodosFromProject(index));
         div.appendChild(projButton);
         if (index !== 0) {
             const deleteProjetc = dom.createButton();
+
             deleteProjetc.innerHTML = `<i class="fa-solid fa-trash"></i>`;
-            deleteProjetc.classList.add("delete-project");
+
+            dom.addClassList(deleteProjetc, "delete-project", 'add');
             dom.bindEvent(deleteProjetc, 'click', () => deleteProjectFunc(projects, index));
             div.appendChild(deleteProjetc);
         }
@@ -77,21 +83,21 @@ function loadTodosFromProject(index) {
 
     projects[index].items.forEach((element, taskIndex) => {
         const card = dom.createDiv();
-        card.classList = 'card'
+        dom.addClassList(card, 'card', 'add');
 
         const title = dom.createPhara();
         title.innerText = element.title;
-        title.classList = 'card-title'
+        dom.addClassList(title, 'card-title', 'add');
         card.appendChild(title)
 
         const dueDate = dom.createPhara();
         dueDate.innerText = element.dueDate;
-        dueDate.classList = 'card-duedate';
+        dom.addClassList(dueDate, 'card-duedate', 'add');
         card.appendChild(dueDate)
 
         const priority = dom.createPhara();
         priority.innerText = element.priority;
-        priority.classList = 'card-priority';
+        dom.addClassList(priority, 'card-priority', 'add');
         card.appendChild(priority)
 
         const completed = dom.createPhara();
@@ -102,7 +108,7 @@ function loadTodosFromProject(index) {
             completed.innerText = 'To do';
             card.style['text-decoration-line'] = 'none';
         }
-        completed.classList = 'card-completed';
+        dom.addClassList(completed, 'card-completed', 'add');
         card.appendChild(completed)
 
         dom.bindEvent(card, 'click', () => showTaskInfo(index, taskIndex));
@@ -156,16 +162,16 @@ function invalidFormSubmissionStyle(data, action) {
     if (action === 'add') {
         Object.entries(data).forEach((element) => {
             if (element[0] === 'notes' || element[0] === 'completed') return;
-            if (element[0] === 'priority' && (element[1].value < 1 || element[1].value > 5)) element[1].classList[action]('invalid-input');
+            if (element[0] === 'priority' && (element[1].value < 1 || element[1].value > 5)) dom.addClassList(element[1], 'invalid-input', action);
             if (element[1].value === '') {
-                element[1].classList[action]('invalid-input');
+                dom.addClassList(element[1], 'invalid-input', action);
             }
         })
     }
     if (action === 'remove') {
         Object.entries(data).forEach((element) => {
             if (element[0] === 'notes' || element[0] === 'completed') return;
-            element[1].classList[action]('invalid-input');
+            dom.addClassList(element[1], 'invalid-input', action);
         })
     }
 }
@@ -191,7 +197,7 @@ function createNewProject() {
 function createNewProjectInput() {
     const input = dom.createInput();
     input.type = 'text';
-    input.classList.add('input-project');
+    dom.addClassList(input, 'input-project', 'add');
     dom.sidebarContent.appendChild(input);
     input.focus();
     return input;

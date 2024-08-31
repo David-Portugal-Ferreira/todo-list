@@ -81,6 +81,12 @@ function selectElement(element) {
     return result;
 }
 
+function addClassList(element, cssClass, action) {
+    if (action === 'add') {
+        return element.classList.add(cssClass)
+    }
+}
+
 
 export { 
     wrapper, 
@@ -106,4 +112,5 @@ export {
     createLabel,
     createTextArea,
     selectElement,
+    addClassList,
 }
