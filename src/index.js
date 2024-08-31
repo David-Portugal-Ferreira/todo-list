@@ -95,10 +95,12 @@ function loadTodosFromProject(index) {
         card.appendChild(priority)
 
         const completed = dom.createPhara();
-        if(element.completed) {
+        if(element.completed === true) {
             completed.innerText = 'Done';
+            card.style['text-decoration-line'] = 'line-through';
         } else {
-            completed.innerText = 'To do'
+            completed.innerText = 'To do';
+            card.style['text-decoration-line'] = 'none';
         }
         completed.classList = 'card-completed';
         card.appendChild(completed)
@@ -246,6 +248,9 @@ function showTaskInfo(index, taskIndex) {
                 case "completed":
                     input.type = "checkbox";
                     input.id = "completed"
+                    if(projects[index].items[taskIndex][element]) {
+                        input.checked = true;
+                    }
                     break;
             }
             input.value = projects[index].items[taskIndex][element];
@@ -273,6 +278,7 @@ function submitNewTodoValues(e, index, taskIndex, form) {
         for (const element in data) {
             if(element === 'completed') {
                 projects[index].items[taskIndex].changeProperty(element, data[element].checked);
+                continue;
             }
             projects[index].items[taskIndex].changeProperty(element, data[element].value);
         }
