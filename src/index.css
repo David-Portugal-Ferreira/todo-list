@@ -116,10 +116,10 @@ dialog button {
     border: 2.5px solid #28A745;
 }
 .card-lowpriority {
-    border: 2.5px solid #FFC107;
+    border: 2.5px solid #FFEB3B;
 }
 .card-medium-priority {
-    border: 2.5px solid #FFEB3B;
+    border: 2.5px solid #FFC107;
 }
 .card-high-priority {
     border: 2.5px solid #FF9800;
