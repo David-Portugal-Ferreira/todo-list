@@ -289,7 +289,7 @@ function showTaskInfo(index, taskIndex) {
     const deleteTodo = dom.createButton();
     deleteTodo.type = 'button';
     deleteTodo.innerHTML = `<i class="fa-solid fa-trash"></i>`;
-    dom.bindEvent(deleteTodo, 'click', () => deleteTask(index, form));
+    dom.bindEvent(deleteTodo, 'click', () => deleteTask(index, taskIndex, form));
 
     form.appendChild(deleteTodo);
 
@@ -319,8 +319,8 @@ function submitNewTodoValues(e, index, taskIndex, form) {
     saveProjectsToLocalStorage();
 }
 
-function deleteTask(index, form) {
-    projects[index].items.splice(index, 1);
+function deleteTask(index, taskIndex, form) {
+    projects[index].items.splice(taskIndex, 1);
     addTaskButtonVisibility('block');
     form.style.display = 'none';
     saveProjectsToLocalStorage();
