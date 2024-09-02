@@ -234,8 +234,7 @@ function addTaskButtonVisibility(action) {
 
 function showTaskInfo(index, taskIndex) {
     addTaskButtonVisibility("none");
-    const formDiv = dom.createDiv();
-    dom.addClassList(formDiv, "change-task", "add");
+
     const form = dom.createForm();
     form.id = "change-task";
 
@@ -284,7 +283,7 @@ function showTaskInfo(index, taskIndex) {
 
     const submitForm = dom.createInput();
     submitForm.type = "submit";
-    dom.bindEvent(submitForm, 'click', (e) => submitNewTodoValues(e, index, taskIndex, formDiv));
+    dom.bindEvent(submitForm, 'click', (e) => submitNewTodoValues(e, index, taskIndex, form));
     form.appendChild(submitForm);
 
     const deleteTodo = dom.createButton();
@@ -294,12 +293,10 @@ function showTaskInfo(index, taskIndex) {
 
     form.appendChild(deleteTodo);
 
-    formDiv.appendChild(form);
-
-    dom.contentTodos.replaceChildren(formDiv);
+    dom.contentTodos.replaceChildren(form);
 }
 
-function submitNewTodoValues(e, index, taskIndex, formDiv) {
+function submitNewTodoValues(e, index, taskIndex, form) {
     e.preventDefault();
     const data = dom.getFormInputs();
     let isDataValid = validateInputValues(data);
@@ -317,7 +314,7 @@ function submitNewTodoValues(e, index, taskIndex, formDiv) {
     }
 
     addTaskButtonVisibility('block');
-    formDiv.style.display = 'none';
+    form.style.display = 'none';
 
     saveProjectsToLocalStorage();
 }
