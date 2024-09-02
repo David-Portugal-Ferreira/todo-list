@@ -1,5 +1,5 @@
-* {
-    --text-font: 16px;
+:root {
+    --text-font: 18px;
 }
 
 body {
@@ -22,7 +22,7 @@ body {
 }
 
 .sidebar {
-    width: 200px;
+    width: 250px;
     background-color: aquamarine;
 }
 
@@ -54,8 +54,8 @@ body {
 .project-btn {
     margin-bottom: 20px;
     margin-right: 5px;
-    width: 130px;
-    height: 25px;
+    width: 150px;
+    height: 30px;
     font-size: var(--text-font);
     border-radius: 15px;
     border-style: none;
@@ -84,7 +84,7 @@ body {
 }
 
 .content {
-    width: calc(100% - 200px);
+    width: calc(100% - 250px);
     background-color: burlywood;
     padding-left: 10px;
 }
@@ -113,9 +113,10 @@ body {
 }
 
 .card {
-    width: 300px;
+    width: 200px;
     display: flex;
-    gap: 15px;
+    flex-direction: column;
+    gap: 5px;
     border: 1px solid black;
     cursor: pointer;
 }
