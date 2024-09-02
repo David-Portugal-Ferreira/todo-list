@@ -85,23 +85,30 @@ function loadTodosFromProject(index) {
         const card = dom.createDiv();
         dom.addClassList(card, 'card', 'add');
 
-        const title = dom.createPhara();
-        title.innerText = element.title;
-        dom.addClassList(title, 'card-title', 'add');
-        card.appendChild(title)
+        const cardHeader = dom.createDiv();
+        dom.addClassList(cardHeader, 'card-header', 'add');
+        const cardBody = dom.createDiv();
+        dom.addClassList(cardBody, 'card-body', 'add');
 
-        const dueDate = dom.createPhara();
-        dueDate.innerText = element.dueDate;
-        dom.addClassList(dueDate, 'card-duedate', 'add');
-        card.appendChild(dueDate)
+        const title = dom.createPhara();
+        title.innerText = `Title: ${element.title}`;
+        dom.addClassList(title, 'card-title', 'add');
+        cardHeader.appendChild(title);
 
         const priority = dom.createPhara();
-        priority.innerText = element.priority;
+        priority.innerText = `Priority: ${element.priority}`;
         dom.addClassList(priority, 'card-priority', 'add');
-        card.appendChild(priority)
+        cardHeader.appendChild(priority);
+
+        card.appendChild(cardHeader);
+
+        const dueDate = dom.createPhara();
+        dueDate.innerText = `Due Date: ${element.dueDate}`;
+        dom.addClassList(dueDate, 'card-duedate', 'add');
+        cardBody.appendChild(dueDate)
 
         const completed = dom.createPhara();
-        if(element.completed === true) {
+        if (element.completed === true) {
             completed.innerText = 'Done';
             card.style['text-decoration-line'] = 'line-through';
         } else {
@@ -109,7 +116,11 @@ function loadTodosFromProject(index) {
             card.style['text-decoration-line'] = 'none';
         }
         dom.addClassList(completed, 'card-completed', 'add');
-        card.appendChild(completed)
+        cardBody.appendChild(completed);
+
+        card.appendChild(cardBody);
+
+        cardBorderColorByPriority(element.priority, card);
 
         dom.bindEvent(card, 'click', () => showTaskInfo(index, taskIndex));
 
@@ -255,7 +266,7 @@ function showTaskInfo(index, taskIndex) {
                 case "completed":
                     input.type = "checkbox";
                     input.id = "completed"
-                    if(projects[index].items[taskIndex][element]) {
+                    if (projects[index].items[taskIndex][element]) {
                         input.checked = true;
                     }
                     break;
@@ -291,7 +302,7 @@ function submitNewTodoValues(e, index, taskIndex, form) {
     let isDataValid = validateInputValues(data);
     if (isDataValid) {
         for (const element in data) {
-            if(element === 'completed') {
+            if (element === 'completed') {
                 projects[index].items[taskIndex].changeProperty(element, data[element].checked);
                 continue;
             }
@@ -313,4 +324,24 @@ function deleteTask(index, form) {
     addTaskButtonVisibility('block');
     form.style.display = 'none';
     saveProjectsToLocalStorage();
+}
+
+function cardBorderColorByPriority(priority, card) {
+    switch (priority) {
+        case "1":
+            dom.addClassList(card, 'card-lowerpriority', "add");
+            break;
+        case "2":
+            dom.addClassList(card, 'card-lowpriority', "add");
+            break;
+        case "3":
+            dom.addClassList(card, 'card-medium-priority', "add");
+            break;
+        case "4":
+            dom.addClassList(card, 'card-high-priority', "add");
+            break;
+        case "5":
+            dom.addClassList(card, 'card-veryhigh-priority', "add");
+            break;
+    }
 }
