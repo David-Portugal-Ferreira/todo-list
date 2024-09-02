@@ -10,7 +10,6 @@ import * as dom from './modules/dom-manipulation'
 
 // TODO - Pass everything related to dom manipulation to dom-manipulation.js
 //        This includes, for exemple, adding id's to something
-//        Make the project prettier
 
 let currrentProject = 0; // Default Project
 const projects = [];
@@ -137,6 +136,7 @@ function addTask() {
         loadTodosFromProject(currrentProject);
         invalidFormSubmissionStyle(data, 'remove')
         cleanFormFields();
+        dom.dialog.close();
     } else {
         invalidFormSubmissionStyle(data, 'add');
         console.log('Erro!')
