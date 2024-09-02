@@ -159,10 +159,10 @@ function cleanFormFields() {
 
 function validateInputValues(data) {
     if (
-        data.title.value === '' ||
+        (data.title.value === '' || data.title.valuelength > 15) ||
         data.description.value === '' ||
         data.dueDate.value === '' ||
-        (data.priority.value === '' || data.priority.value < 1 || data.priority.value > 5) ||
+        (data.priority.value === '' || +data.priority.value < 1 || +data.priority.value > 5) ||
         data.description.value === ''
     ) {
         return false
@@ -174,7 +174,6 @@ function invalidFormSubmissionStyle(data, action) {
     if (action === 'add') {
         Object.entries(data).forEach((element) => {
             if (element[0] === 'notes' || element[0] === 'completed') return;
-            if (element[0] === 'priority' && (element[1].value < 1 || element[1].value > 5)) dom.addClassList(element[1], 'invalid-input', action);
             if (element[1].value === '') {
                 dom.addClassList(element[1], 'invalid-input', action);
             }
@@ -235,6 +234,8 @@ function addTaskButtonVisibility(action) {
 
 function showTaskInfo(index, taskIndex) {
     addTaskButtonVisibility("none");
+    const formDiv = dom.createDiv();
+    dom.addClassList(formDiv, "change-task", "add");
     const form = dom.createForm();
     form.id = "change-task";
 
@@ -283,7 +284,7 @@ function showTaskInfo(index, taskIndex) {
 
     const submitForm = dom.createInput();
     submitForm.type = "submit";
-    dom.bindEvent(submitForm, 'click', (e) => submitNewTodoValues(e, index, taskIndex, form));
+    dom.bindEvent(submitForm, 'click', (e) => submitNewTodoValues(e, index, taskIndex, formDiv));
     form.appendChild(submitForm);
 
     const deleteTodo = dom.createButton();
@@ -293,10 +294,12 @@ function showTaskInfo(index, taskIndex) {
 
     form.appendChild(deleteTodo);
 
-    dom.contentTodos.replaceChildren(form);
+    formDiv.appendChild(form);
+
+    dom.contentTodos.replaceChildren(formDiv);
 }
 
-function submitNewTodoValues(e, index, taskIndex, form) {
+function submitNewTodoValues(e, index, taskIndex, formDiv) {
     e.preventDefault();
     const data = dom.getFormInputs();
     let isDataValid = validateInputValues(data);
@@ -314,7 +317,7 @@ function submitNewTodoValues(e, index, taskIndex, form) {
     }
 
     addTaskButtonVisibility('block');
-    form.style.display = 'none';
+    formDiv.style.display = 'none';
 
     saveProjectsToLocalStorage();
 }

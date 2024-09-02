@@ -85,6 +85,9 @@ function addClassList(element, cssClass, action) {
     if (action === 'add') {
         return element.classList.add(cssClass)
     }
+    if (action === 'remove') {
+        return element.classList.remove(cssClass);
+    }
 }
 
 
