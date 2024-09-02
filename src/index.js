@@ -279,20 +279,22 @@ function showTaskInfo(index, taskIndex) {
             textArea.value = projects[index].items[taskIndex][element];
             form.appendChild(textArea);
         }
-    })
+    });
+
+    const actionsDiv = dom.createDiv();
 
     const submitForm = dom.createInput();
     submitForm.type = "submit";
     dom.bindEvent(submitForm, 'click', (e) => submitNewTodoValues(e, index, taskIndex, form));
-    form.appendChild(submitForm);
+    actionsDiv.appendChild(submitForm);
 
     const deleteTodo = dom.createButton();
     deleteTodo.type = 'button';
     deleteTodo.innerHTML = `<i class="fa-solid fa-trash"></i>`;
     dom.bindEvent(deleteTodo, 'click', () => deleteTask(index, taskIndex, form));
 
-    form.appendChild(deleteTodo);
-
+    actionsDiv.appendChild(deleteTodo);
+    form.appendChild(actionsDiv);
     dom.contentTodos.replaceChildren(form);
 }
 
